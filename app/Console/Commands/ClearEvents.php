@@ -13,7 +13,7 @@ class ClearEvents extends Command
      *
      * @var string
      */
-    protected $signature = 'events:clear';
+    protected $signature = "events:clear {--date=}";
 
     /**
      * The console command description.
@@ -39,7 +39,11 @@ class ClearEvents extends Command
      */
     public function handle()
     {
-        $events = Event::all()->where('date','<', Carbon::now()->format("Y-m-d"));
+        $date = $this->option('date');
+        if (empty($date)){
+            $date = Carbon::now()->format("Y-m-d");
+        }
+        $events = Event::all()->where('date','<', $date);
         foreach ($events as $event){
             $event->destroy($event->id);
         }
