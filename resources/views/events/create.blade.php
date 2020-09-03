@@ -149,7 +149,9 @@
     <script>
         $(document).ready(function () {
             $("#company_id").change(function () {
+                document.getElementById('date').valueAsDate = new Date();
                 $("#user_id").empty();
+                $("#shift").empty();
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

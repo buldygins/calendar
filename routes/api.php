@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/company/{id}/users', 'CompanyController@userlist');
 
 Route::get('/event/{company_id}/{date}', 'EventController@checkAvailableShifts');
+
+Route::get('/parse/{id}/{attribute}','EventController@xmlParse');

@@ -6,7 +6,10 @@ use App\Http\Requests\EventRequest;
 use App\Models\Company;
 use App\Models\Event;
 use App\Models\Shift;
+use http\Client;
 use Illuminate\Http\Request;
+use SimplePie;
+use willvincent\Feeds\Facades\FeedsFacade;
 
 class EventController extends Controller
 {
@@ -15,12 +18,11 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id = 1)
+    public function index()
     {
-        $companies = Company::all();
-        $exactcompany = Company::find($id);
+        $companies = Company::with('events.user')->get();
         $shifts = Shift::all();
-        return view('events.all', compact(['companies', 'exactcompany', 'shifts']));
+        return view('events.all', compact(['companies', 'shifts']));
     }
 
     /**
@@ -92,7 +94,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         Event::find($event->id)->delete();
-        return redirect()->route('event.index',$event->company->id);
+        return redirect()->route('event.index', $event->company->id);
     }
 
     public function checkAvailableShifts($company_id, $date)
@@ -111,5 +113,41 @@ class EventController extends Controller
         } else {
             return $diff;
         }
+    }
+
+    public function xmlEvents($id)
+    {
+        //$events = Event::where('company_id',$id)->get();
+        $events = Company::find($id)->events;
+        return response()->view('test', compact('events'))->header('Content-type', 'text/xml');
+    }
+
+    public function xmlParse($id, $attribute = 0)
+    {
+        $simp = new SimplePie();
+        $simp->set_feed_url('http://events/test/' . $id);
+        $simp->set_cache_location(storage_path('framework/cache'));
+        $simp->set_cache_duration();
+        $simp->init();
+        dump($simp->get_title());
+        $data = $simp->get_items();
+        foreach ($data as $item) {
+            dump($item->get_title());
+            dump($item->get_description());
+        }
+        dd($data);
+//        $feed = FeedsFacade::make('http://events/test/' . $id);
+//        // dd($simp);
+//        $items = $feed->get_items();
+//        dump($feed->get_title());
+//        foreach ($items as $item) {
+//            dump($item->get_title());
+//            dump($item->get_description());
+//        }
+    }
+
+    public function companies()
+    {
+        dd(Company::has('events')->get());
     }
 }

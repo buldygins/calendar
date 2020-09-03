@@ -23,7 +23,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('event.index', 1) }}">
+            <a class="navbar-brand" href="{{ route('event.index') }}">
                 {{ __('Events') }}
             </a>
 

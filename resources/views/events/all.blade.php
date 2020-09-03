@@ -2,16 +2,11 @@
 
 @section('content')
     <div class="container">
-        <select id="company" class="form-control col-3 m-1"
-                onChange="window.document.location='/events/'+this.options[this.selectedIndex].value;">
-            @foreach($companies as $company)
-                <option class="custom-select" value="{{$company->id}}"
-                        @if($company->id == $exactcompany->id) selected @endif>{{__($company->name)}}
-                </option>
-            @endforeach
-        </select>
         <div class="table-responsive">
-            @if(count($exactcompany->events) > 0)
+            @foreach($companies as $company)
+                @if(count($company->events) == 0)@continue
+                @endif
+            <h4>{{$company->name}}</h4>
                 <table class="table border">
                     <thead>
                     <tr class="">
@@ -27,7 +22,7 @@
                         <tr class="">
                             <th scope="row">{{$shift->name}}</th>
                             @for($i = 0; $i < 14; $i++)
-                                @foreach($exactcompany->events as $event)
+                                @foreach($company->events as $event)
                                     @if($event->date == \Illuminate\Support\Carbon::now()->addDay($i)->format("Y-m-d") and $event->shift_id == $shift->id )
                                         <td class="border">
                                             <div class="card">
@@ -52,9 +47,7 @@
                     @endforeach
                     </tbody>
                 </table>
-            @else
-                <span>This company doesn't have events</span>
-            @endif
+            @endforeach
         </div>
         <div class="form-group row mb-0">
             <div class=" offset-md-1">

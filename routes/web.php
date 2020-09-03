@@ -21,5 +21,10 @@ Route::resource('event', 'EventController')->except('index')->middleware('auth')
 
 Route::resource('company', 'CompanyController');
 
-Route::get('/events/{company_id}', 'EventController@index')->name('event.index');
+Route::get('/events', 'EventController@index')->name('event.index');
+
+Route::get('/tester','EventController@companies');
+
+Route::get('/test/{id}','EventController@xmlEvents');
+
 
