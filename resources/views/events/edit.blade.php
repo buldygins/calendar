@@ -87,8 +87,13 @@
                                 <div class="col-md-6">
                                     <select id="user_id" class="form-control" name="user_id" required>
                                         <option value="{{$event->user_id}}" selected>{{$event->user->name}}</option>
+                                        @foreach($event->company->users as $user)
+                                            @if($user->id == $event->user_id)
+                                                @continue
+                                            @endif
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endforeach
                                     </select>
-
                                     @error('company_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -177,6 +182,7 @@
                     },
 
                 });
+                $("#shift").empty();
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

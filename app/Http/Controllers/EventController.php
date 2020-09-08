@@ -71,7 +71,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $companies = Company::all();
+        $companies = Company::all()->except(['id' => $event->company->id]);
         return view('events.edit', compact(['event', 'companies']));
     }
 
@@ -121,14 +121,14 @@ class EventController extends Controller
     public function xmlEvents($id)
     {
         //$events = Event::where('company_id',$id)->get();
-        $events = Company::find($id)->events;
+        $events = Company::findOrFail($id)->events;
         return response()->view('test', compact('events'))->header('Content-type', 'text/xml');
     }
 
     public function xmlParse($id, $attribute = 0)
     {
         $simp = new SimplePie();
-        $simp->set_feed_url('http://events/test/' . $id);
+        $simp->set_feed_url(route('xmlEvents', $id));
         $simp->set_cache_location(storage_path('framework/cache'));
         $simp->set_cache_duration();
         $simp->init();

@@ -25,6 +25,6 @@ Route::get('/events', 'EventController@index')->name('event.index');
 
 Route::get('/tester','EventController@companies');
 
-Route::get('/test/{id}','EventController@xmlEvents');
+Route::get('/test/{id}','EventController@xmlEvents')->name('xmlEvents');
 
 
