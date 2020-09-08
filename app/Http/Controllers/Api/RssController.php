@@ -12,7 +12,7 @@ class RssController extends Controller
 {
 
     /**
-     * making an XML document of all events of wxact company
+     * Making an XML document of all events of exact company
      * @param $id
      * @return \Illuminate\Http\Response
      */
@@ -23,6 +23,7 @@ class RssController extends Controller
     }
 
     /**
+     * Parse the XML document to log
      * @param $id
      * @return Illuminate\Support\Facades\Log
      */
