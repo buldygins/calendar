@@ -22,4 +22,4 @@ Route::get('/company/{id}/users', 'CompanyController@userlist');
 
 Route::get('/event/{company_id}/{date}', 'EventController@checkAvailableShifts');
 
-Route::get('/parse/{id}/{attribute}','EventController@xmlParse');
+Route::get('/parse/{id}','Api\RssController@xmlParseToLog');

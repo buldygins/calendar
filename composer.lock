@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c19a7941582b96bd963ad800d757b551",
+    "content-hash": "512320b2d1712fc1969daa51b09a5ab1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4626,55 +4626,6 @@
                 }
             ],
             "time": "2020-07-22T23:32:04+00:00"
-        },
-        {
-            "name": "willvincent/feeds",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/willvincent/feeds.git",
-                "reference": "74ffa0b9b2cf1ab35ff71a17ec311fcee64bbabb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/willvincent/feeds/zipball/74ffa0b9b2cf1ab35ff71a17ec311fcee64bbabb",
-                "reference": "74ffa0b9b2cf1ab35ff71a17ec311fcee64bbabb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "illuminate/support": "~5.0 || ^6.0 || ^7.0",
-                "php": ">=5.4.0 || ^7.2",
-                "simplepie/simplepie": "1.5.*"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "willvincent\\Feeds\\FeedsServiceProvider"
-                    ],
-                    "aliases": {
-                        "Feeds": "willvincent\\Feeds\\Facades\\FeedsFacade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "willvincent\\Feeds\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Will Vincent",
-                    "email": "tcindie@gmail.com"
-                }
-            ],
-            "description": "Laravel 5 Service Provider for the SimplePie library",
-            "time": "2020-03-11T21:23:52+00:00"
         }
     ],
     "packages-dev": [

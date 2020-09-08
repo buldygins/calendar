@@ -17,8 +17,7 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
-        "simplepie/simplepie": "^1.5",
-        "willvincent/feeds": "^2.1"
+        "simplepie/simplepie": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.4",

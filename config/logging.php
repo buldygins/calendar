@@ -47,6 +47,12 @@ return [
             'level' => 'debug',
         ],
 
+        'rss' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/rss.log'),
+            'level' => 'debug',
+        ],
+
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
