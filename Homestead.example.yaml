@@ -1,0 +1,26 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: PATH_TO_SSH_KEY_PUBLIC
+keys:
+    - PATH_TO_SSH_KEY
+folders:
+    -
+        map: PATH_TO_PROJECT
+        to: /home/vagrant/code
+sites:
+    -
+        map: DOMAIN
+        to: /home/vagrant/code/public
+databases:
+    - events
+features:
+    -
+        mariadb: false
+    -
+        ohmyzsh: false
+    -
+        webdriver: false
+name: events
+hostname: events
