@@ -2,12 +2,15 @@
 
 @section('content')
     <div class="container">
-        <div class="table-responsive">
+        <event-table></event-table>
+        <button-counter></button-counter>
+        <example-component></example-component>
+        <div class="container">
             @foreach($companies as $company)
                 @if(count($company->events) == 0)@continue
                 @endif
-            <h4>{{$company->name}}</h4>
-                <table class="table border">
+                <h4>{{$company->name}}</h4>
+                <table class="table border table-responsive">
                     <thead>
                     <tr class="">
                         <th scope="col" class="border">#</th>
@@ -58,3 +61,33 @@
         </div>
     </div>
 @endsection
+<script>
+    import EventTable from "../../js/components/event-table";
+    export default {
+        components: {EventTable}
+    }
+</script>
+<script>
+    import ButtonCounter from "../../js/components/button-counter";
+    export default {
+        components: {ButtonCounter}
+    }
+</script>
+<script>
+    import ButtonCounter from "../../js/components/button-counter";
+    export default {
+        components: {ButtonCounter}
+    }
+</script>
+<script>
+    import EventTable from "../../js/components/event-table";
+    export default {
+        components: {EventTable}
+    }
+</script>
+<script>
+    import EventTable from "../../js/components/event-table";
+    export default {
+        components: {EventTable}
+    }
+</script>

@@ -87,12 +87,6 @@
                                     <select id="user_id" class="form-control" name="user_id" required>
                                         <option value="" disabled selected hidden>First select company</option>
                                     </select>
-
-                                    @error('company_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -100,10 +94,11 @@
                                 <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('Date') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="date" type="date" min={{date("Y-m-d")}} max={{\Illuminate\Support\Carbon::now()->addWeek(2)->format("Y-m-d")}}
-                                        value={{date("Y-m-d")}}
-                                        class="form-control"
-                                    name="date" value="{{ old('date') }}" required>
+                                    <input id="date" type="date"
+                                           min={{date("Y-m-d")}} max={{\Illuminate\Support\Carbon::now()->addWeek(2)->format("Y-m-d")}}
+                                               value={{date("Y-m-d")}}
+                                               class="form-control"
+                                           name="date" value="{{ old('date') }}" required>
 
                                     @error('date')
                                     <span class="invalid-feedback" role="alert">
@@ -118,22 +113,16 @@
                                        class="col-md-4 col-form-label text-md-right">{{ __('Shift') }}</label>
 
                                 <div class="col-md-6">
-                                    <select id="shift" class="form-control" name="shift_id" required>
+                                    <select id="shift_id" class="form-control" name="shift_id" required>
                                         <option value="" disabled selected hidden>First select date</option>
                                     </select>
-
-                                    @error('company_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
 
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary" >
+                                    <button type="submit" class="btn btn-primary">
                                         {{ __('Make an event') }}
                                     </button>
                                 </div>
@@ -148,6 +137,9 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            function option(index, value, params ='') {
+                return '<option value="' + index + '" ' + params + '>' + value + '</option>'
+            }
             $("#company_id").change(function () {
                 document.getElementById('date').valueAsDate = new Date();
                 $("#user_id").empty();
@@ -160,11 +152,11 @@
                     url: "/api/company/" + $("#company_id").val() + "/users",
                     success: function (result) {
                         $.each(result, function (index, value) {
-                            $("#user_id").append('<option value="' + index + '">' + value + '</option>')
+                            $("#user_id").append(option(index, value))
                         })
                     },
                     error: function () {
-                        $("#user_id").append('<option value="" disabled selected hidden>В этой компании нет ответственных</option>')
+                        $("#user_id").append(option('', 'В этой компании нет ответственных', 'disabled selected hidden'))
                     },
                 });
             });
@@ -175,7 +167,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: "get",
-                    url: "/api/event/" + $("#company_id").val() +'/'+ $("#date").val(),
+                    url: "/api/event/" + $("#company_id").val() + '/' + $("#date").val(),
                     success: function (result) {
                         $.each(result, function (index, value) {
                             $("#shift").append('<option value="' + index + '">' + value + '</option>')

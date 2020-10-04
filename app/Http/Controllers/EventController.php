@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Jobs\EventMailJob;
 use App\Models\Company;
 use App\Models\Event;
 use App\Models\Shift;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => ['create', 'store', 'destroy', 'edit', 'update']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +49,8 @@ class EventController extends Controller
      */
     public function store(EventRequest $request)
     {
-        Event::create($request->validated());
+        $event = Event::create($request->validated());
+        EventMailJob::dispatch($event->user, $event, Auth::user());
         return redirect()->route('event.index', 1);
     }
 
@@ -53,7 +62,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('events.event', compact('event'));
     }
 
     /**
@@ -89,9 +98,18 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        Event::find($event->id)->delete();
+        $event->delete();
         return redirect()->route('event.index', $event->company->id);
     }
+
+    /**
+     * Outputs available shift for requested company on date.
+     *
+     * @param $company_id
+     * @param $date
+     * @return array
+     *
+     */
 
     public function checkAvailableShifts($company_id, $date)
     {
@@ -111,9 +129,20 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Returns
+     *
+     * @return Event[]|\Illuminate\Database\Eloquent\Collection
+     */
 
-    public function companies()
+    public function EventTable()
     {
-        dd(Company::has('events')->get());
+        return Event::all();
+    }
+
+
+    public function apiDestroy(Event $event)
+    {
+        return response()->json($event->delete());
     }
 }

@@ -17,13 +17,9 @@ Route::get('/', 'EventController@index');
 
 Auth::routes();
 
-Route::resource('event', 'EventController')->except('index')->middleware('auth');
+Route::resource('event', 'EventController');
 
 Route::resource('company', 'CompanyController');
-
-Route::get('/events', 'EventController@index')->name('event.index');
-
-Route::get('/tester','EventController@companies');
 
 Route::get('/test/{id}','Api\RssController@xmlEvents')->name('xmlEvents');
 

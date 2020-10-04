@@ -94,6 +94,13 @@ class CompanyController extends Controller
         return redirect()->route('company.index');
     }
 
+    /**
+     *
+     *
+     * @param $id
+     * @return mixed
+     */
+
     public function userlist($id)
     {
         $company = Company::find($id);
@@ -101,7 +108,7 @@ class CompanyController extends Controller
             foreach ($company->users as $user) {
                 $data[$user->id] = $user->name;
             }
-        }
-        return $data;
+            return $data;
+        } return false;
     }
 }

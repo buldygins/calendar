@@ -25,7 +25,7 @@ class EventRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'cost' => ['required'],
+            'cost' => ['required','numeric'],
             'type' => ['required'],
             'company_id' => ['required'],
             'user_id' => ['required'],

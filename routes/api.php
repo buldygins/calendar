@@ -20,6 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/company/{id}/users', 'CompanyController@userlist');
 
+Route::delete('/delete/event/{event}','EventController@apiDestroy');
+
 Route::get('/event/{company_id}/{date}', 'EventController@checkAvailableShifts');
 
 Route::get('/parse/{id}','Api\RssController@xmlParseToLog');
+
+Route::get('/getdata','EventController@EventTable');
+
+Route::delete('/test/{id}','EventController@ajaxhandle');
+
